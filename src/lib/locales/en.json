@@ -1,0 +1,79 @@
+{
+  "loginScreen": {
+    "title": "Login Screen",
+    "emailLabel": "Email",
+    "placeholderEmail": "Enter your email",
+    "phoneLabel": "Phone Number",
+    "placeholderPhone": "Enter your phone number",
+    "loginButton": "Login",
+    "welcome": "Welcome to Trasgo",
+    "welcomeSub": "Sign in or register in a few easy steps",
+    "emptyPhone": "Phone number cannot be empty",
+    "emptyEmail": "Email cannot be empty",
+    "otpbutton": "Send OTP",
+    "otpTitle": "How would you like to receive the OTP?",
+    "otpDesc": "Trasgo will send you an OTP code to sign in/register.",
+    "otpDesc2": "Choose the app where you want to receive the OTP code"
+  },
+  "verifikasiScreen": {
+    "header": "Verification",
+    "title": "Enter the verification code we sent to your phone",
+    "kodeverifikasi": "Verification Code",
+    "placeholderkode": "Enter the verification code",
+    "kirimulang": "Resend",
+    "verifikasiButton": "Confirm",
+    "emptyPhone": "Phone number cannot be empty",
+    "emptyEmail": "Email cannot be empty",
+    "otpTitle": "How would you like to receive the OTP?"
+  },
+  "updateScreen": {
+    "header": "Update Account",
+    "title": "Update your data to enjoy Trasgo services",
+    "fullName": "Full Name",
+    "placeholderfullName": "Enter Full Name",
+    "email": "Email",
+    "placeholderemail": "Enter Email",
+    "kirimulang": "Resend",
+    "verifikasiButton": "Confirm",
+    "emptyPhone": "Phone number cannot be empty",
+    "emptyEmail": "Email cannot be empty",
+    "otpTitle": "How would you like to receive the OTP?"
+  },
+  "button": {
+    "batal": "Batal",
+    "pesan": "Pesan Sekarang",
+    "keluar": "Keluar",
+    "konfirmasi": "konfirmasi",
+    "tutup":"Tutup",
+    "pilihkendaraan":"Swipe untuk memilih kendaraan"  
+  },
+  "modalChoice": {
+    "PilihKendaraan": "Swipe untuk memilih kendaraan"
+  },
+  "modalKeluarApp": {
+    "title": "Log Out of App",
+    "desc": "You can log in again later to use the Trasgo app"
+  },
+  "menuAkun": {
+    "title": "Account",
+    "profile": "My Profile",
+    "referal": "Referral and Rewards",
+    "alamat": "Saved Addresses",
+    "term": "Terms & Conditions",
+    "supportt": "Support",
+    "keluar": "Log Out"
+  },
+  "menuHome": {
+    "selamat": "Welcome",
+    "inform": "Information for you"
+  },
+  "menuAktifitas": {
+    "title": "Activities",
+    "profile": "My Profile"
+  },
+  "menuBottom": {
+    "beranda": "Home",
+    "action": "Activities",
+    "akun": "Account"
+  }
+}

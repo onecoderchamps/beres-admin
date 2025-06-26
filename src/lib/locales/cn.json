@@ -1,0 +1,64 @@
+{
+  "loginScreen": {
+    "title": "登录页面",
+    "emailLabel": "电子邮件",
+    "placeholderEmail": "请输入您的电子邮件",
+    "phoneLabel": "电话号码",
+    "placeholderPhone": "请输入您的电话号码",
+    "loginButton": "登录",
+    "welcome": "欢迎来到Trasgo",
+    "welcomeSub": "轻松注册或登录",
+    "emptyPhone": "电话号码不能为空",
+    "emptyEmail": "电子邮件不能为空",
+    "otpbutton": "发送OTP",
+    "otpTitle": "您想如何接收OTP？",
+    "otpDesc": "Trasgo将向您发送一个OTP验证码进行登录/注册。",
+    "otpDesc2": "选择您希望接收OTP验证码的应用程序"
+  },
+  "verifikasiScreen": {
+    "header": "验证",
+    "title": "请输入我们发送到您手机的验证码",
+    "kodeverifikasi": "验证码",
+    "placeholderkode": "请输入验证码",
+    "kirimulang": "重新发送",
+    "verifikasiButton": "确认",
+    "emptyPhone": "电话号码不能为空",
+    "emptyEmail": "电子邮件不能为空",
+    "otpTitle": "您想如何接收OTP？"
+  },
+  "button": {
+    "batal": "取消",
+    "pesan": "立即预订",
+    "keluar": "退出",
+     "konfirmasi": "konfirmasi"
+  },
+  "modalChoice": {
+    "PilihKendaraan": "选择车辆"
+  },
+  "modalKeluarApp": {
+    "title": "退出应用",
+    "desc": "您可以稍后重新登录以使用Trasgo应用"
+  },
+  "menuAkun": {
+    "title": "账户",
+    "profile": "我的个人资料",
+    "referal": "推荐与奖励",
+    "alamat": "已保存的地址",
+    "term": "条款与条件",
+    "supportt": "支持",
+    "keluar": "退出"
+  },
+  "menuHome": {
+    "selamat": "欢迎",
+    "inform": "为您提供的信息"
+  },
+  "menuAktifitas": {
+    "title": "活动",
+    "profile": "我的个人资料"
+  },
+  "menuBottom": {
+    "beranda": "主页",
+    "action": "活动",
+    "akun": "账户"
+  }
+}

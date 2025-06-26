@@ -1,0 +1,77 @@
+{
+  "loginScreen": {
+    "title": "Halaman Masuk",
+    "emailLabel": "Email",
+    "placeholderEmail": "Masukkan email Anda",
+    "phoneLabel": "Nomor Telepon",
+    "placeholderPhone": "Masukkan nomor telepon",
+    "loginButton": "Masuk",
+    "welcome": "Selamat datang di Trasgo",
+    "welcomeSub": "Masuk atau daftar dalam beberapa langkah mudah",
+    "emptyPhone": "Nomor telepon tidak boleh kosong",
+    "emptyEmail": "Email tidak boleh kosong",
+    "otpbutton": "Kirim OTP",
+    "otpTitle": "Bagaimana Anda ingin menerima OTP?",
+    "otpDesc": "Trasgo akan mengirimkan kode OTP untuk masuk/daftar.",
+    "otpDesc2": "Pilih aplikasi tempat Anda ingin menerima kode OTP"
+  },
+  "verifikasiScreen": {
+    "header": "Verifikasi",
+    "title": "Masukkan kode verifikasi yang kami kirimkan ke nomor telepon Anda",
+    "kodeverifikasi": "Kode Verifikasi",
+    "placeholderkode": "Masukkan kode verifikasi",
+    "kirimulang": "Kirim Ulang",
+    "verifikasiButton": "Konfirmasi",
+    "emptyPhone": "Nomor telepon tidak boleh kosong",
+    "emptyEmail": "Email tidak boleh kosong",
+    "otpTitle": "Bagaimana Anda ingin menerima OTP?"
+  },
+  "updateScreen": {
+    "header": "Update",
+    "title": "Update your data to enjoy Trasgo services",
+    "kodeverifikasi": "Kode Verifikasi",
+    "placeholderkode": "Masukkan kode verifikasi",
+    "kirimulang": "Kirim Ulang",
+    "verifikasiButton": "Konfirmasi",
+    "emptyPhone": "Nomor telepon tidak boleh kosong",
+    "emptyEmail": "Email tidak boleh kosong",
+    "otpTitle": "Bagaimana Anda ingin menerima OTP?"
+  },
+  "button": {
+    "batal": "Batal",
+    "pesan": "Pesan Sekarang",
+    "keluar": "Keluar",
+    "konfirmasi": "konfirmasi",
+    "tutup":"Tutup",
+    "pilihkendaraan":"Swipe Keatas untuk memilih kendaraan"  
+  },
+  "modalChoice": {
+    "PilihKendaraan": "Swipe Keatas untuk memilih kendaraan"
+  },
+  "modalKeluarApp": {
+    "title": "Keluar dari Aplikasi",
+    "desc": "Anda bisa masuk lagi nanti untuk menggunakan aplikasi Trasgo"
+  },
+  "menuAkun": {
+    "title": "Akun",
+    "profile": "Profil Saya",
+    "referal": "Referral dan Hadiah",
+    "alamat": "Alamat Tersimpan",
+    "term": "Syarat & Ketentuan",
+    "supportt": "Bantuan",
+    "keluar": "Keluar"
+  },
+  "menuHome": {
+    "selamat": "Selamat Datang",
+    "inform": "Informasi untuk Anda"
+  },
+  "menuAktifitas": {
+    "title": "Aktivitas",
+    "profile": "Profil Saya"
+  },
+  "menuBottom": {
+    "beranda": "Beranda",
+    "action": "Aktivitas",
+    "akun": "Akun"
+  }
+}

@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Layout selalu seperti mobile */
+html, body {
+  margin: 0 auto;
+  overflow-x: hidden;
+  touch-action: manipulation; /* kadang membantu di mobile */
+}
+
+
