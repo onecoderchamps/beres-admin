@@ -19,7 +19,7 @@ const PatunganScreen = () => {
     keterangan: '',
     banner: [''],
     document: [''],
-    location: '',
+    location: '', // <--- Tambah field location di state form
     targetLot: 0,
     targetAmount: 0,
     penagihanDate: '',
@@ -50,7 +50,7 @@ const PatunganScreen = () => {
         keterangan: item.keterangan || '',
         banner: item.banner || [''],
         document: item.doc || [''],
-        location: item.location || '',
+        location: item.location || '', // <--- Ambil location dari item yang diedit
         targetLot: item.totalSlot ?? 0,
         targetAmount: item.targetPay ?? 0,
         penagihanDate: item.penagihanDate || '',
@@ -64,7 +64,7 @@ const PatunganScreen = () => {
         keterangan: '',
         banner: [''],
         document: [''],
-        location: '',
+        location: '', // <--- Inisialisasi location untuk form baru
         targetLot: 0,
         targetAmount: 0,
         penagihanDate: '',
@@ -86,6 +86,7 @@ const PatunganScreen = () => {
       keterangan: form.description,
       banner: form.banner,
       document: form.document,
+      location: form.location, // <--- Tambah location ke payload
       targetLot: Number(form.targetLot),
       targetAmount: Number(form.targetAmount),
     };
@@ -236,6 +237,7 @@ const PatunganScreen = () => {
                 <th scope="col" className="px-6 py-3 rounded-tl-lg">No</th>
                 <th scope="col" className="px-6 py-3">Judul</th>
                 <th scope="col" className="px-6 py-3">Deskripsi</th>
+                <th scope="col" className="px-6 py-3">Kenaikan Saham</th> {/* <--- Tambah kolom Lokasi di tabel utama */}
                 <th scope="col" className="px-6 py-3">Status</th>
                 <th scope="col" className="px-6 py-3 rounded-tr-lg text-center">Aksi</th>
               </tr>
@@ -247,6 +249,7 @@ const PatunganScreen = () => {
                     <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{index + 1}</td>
                     <td className="px-6 py-4">{item.title}</td>
                     <td className="px-6 py-4">{item.keterangan}</td>
+                    <td className="px-6 py-4">{item.kenaikan || '-'} %</td> {/* <--- Tampilkan data location */}
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-semibold ${item.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                         {item.status ? 'Aktif' : 'Tidak Aktif'}
@@ -272,7 +275,7 @@ const PatunganScreen = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
+                  <td colSpan="6" className="px-6 py-4 text-center text-gray-500"> {/* <--- Ubah colspan menjadi 6 */}
                     Tidak ada data patungan yang tersedia.
                   </td>
                 </tr>
@@ -317,6 +320,20 @@ const PatunganScreen = () => {
                     placeholder="Jelaskan detail patungan"
                   ></textarea>
                 </div>
+
+                {/* --- Tambah Input Location di sini --- */}
+                <div className="md:col-span-2"> {/* Menggunakan col-span-2 agar lebar penuh */}
+                  <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">Kenaikan Saham</label>
+                  <input
+                    type="text"
+                    id="location"
+                    value={form.location}
+                    onChange={(e) => setForm({ ...form, location: e.target.value })}
+                    className="w-full border border-gray-300 rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                    placeholder="Masukkan 1% atau 2% atau 3%"
+                  />
+                </div>
+                {/* --- End Tambah Input Location --- */}
 
                 {/* Target Member & Target Bulanan */}
                 <div>
@@ -478,7 +495,7 @@ const PatunganScreen = () => {
               <div>
                 <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">Nomor Ponsel</label>
                 <input
-                  type="text"
+                  type="text" // Menggunakan type="text" agar format +62 tidak hilang
                   id="phoneNumber"
                   value={newMemberPhoneNumber}
                   onChange={(e) => setNewMemberPhoneNumber(e.target.value)}

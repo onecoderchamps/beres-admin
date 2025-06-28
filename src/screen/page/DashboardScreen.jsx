@@ -1,7 +1,6 @@
 // src/pages/AdminOrderTable.jsx
-import React, { useState, useEffect, useCallback } from 'react';
-// Pastikan Anda juga mengimpor 'putData' dari service Anda
-import { getData, putData } from '../../api/service'; // Mengubah postData menjadi putData
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { getData, putData } from '../../api/service';
 import { useNavigate } from 'react-router-dom';
 
 // Helper function to format currency
@@ -29,11 +28,14 @@ const formatDate = (isoString) => {
 };
 
 function AdminOrderTable() {
-  const [orders, setOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showProofModal, setShowProofModal] = useState(false);
   const [currentProofImage, setCurrentProofImage] = useState('');
+  const [activeTab, setActiveTab] = useState('Pending');
+  const [isSubmitting, setIsSubmitting] = useState(null); // State untuk melacak order ID yang sedang diproses
+
   const navigate = useNavigate();
 
   const fetchOrders = useCallback(async () => {
@@ -42,14 +44,9 @@ function AdminOrderTable() {
     try {
       const response = await getData("Order/Admin");
       if (response && response.data) {
-        const sortedData = response.data.sort((a, b) => {
-          if (a.status === 'Pending' && b.status !== 'Pending') return -1;
-          if (a.status !== 'Pending' && b.status === 'Pending') return 1;
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-        setOrders(sortedData);
+        setAllOrders(response.data);
       } else {
-        setOrders([]);
+        setAllOrders([]);
         setError("Data order tidak ditemukan.");
       }
     } catch (err) {
@@ -64,21 +61,44 @@ function AdminOrderTable() {
     fetchOrders();
   }, [fetchOrders]);
 
+  const filteredOrders = useMemo(() => {
+    let filtered = [];
+    if (activeTab === 'Semua') {
+      filtered = allOrders;
+    } else {
+      filtered = allOrders.filter(order => order.status === activeTab);
+    }
+
+    if (activeTab === 'Semua') {
+      return filtered.sort((a, b) => {
+        if (a.status === 'Pending' && b.status !== 'Pending') return -1;
+        if (a.status !== 'Pending' && b.status === 'Pending') return 1;
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    } else {
+      return filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+  }, [allOrders, activeTab]);
+
   // Handle Approve/Reject action
-  const handleAction = async (orderId, newStatus) => { // Mengubah 'status' menjadi 'newStatus' untuk kejelasan
+  const handleAction = async (orderId, newStatus) => {
+    if (isSubmitting === orderId) { // Mencegah double click pada order yang sama
+      return;
+    }
+
     if (!window.confirm(`Apakah Anda yakin ingin ${newStatus === 'Selesai' ? 'menyetujui' : 'menolak'} order ini?`)) {
       return;
     }
 
+    setIsSubmitting(orderId); // Set order ID yang sedang diproses
+
     try {
-      // Membuat formData sesuai spesifikasi Anda
       const formData = {
         id: orderId,
         status: newStatus
       };
 
-      // Memanggil putData ke endpoint "Order/Saldo"
-      const response = await putData("Order/Saldo", formData); // Mengubah endpoint dan menggunakan putData
+      const response = await putData("Order/Saldo", formData);
 
       if (response && response.code === 200) {
         alert(`Order berhasil ${newStatus === 'Selesai' ? 'disetujui' : 'ditolak'}!`);
@@ -89,6 +109,8 @@ function AdminOrderTable() {
     } catch (err) {
       console.error(`Error ${newStatus === 'Selesai' ? 'approving' : 'rejecting'} order:`, err);
       alert(`Terjadi kesalahan saat memproses order. Silakan coba lagi.`);
+    } finally {
+      setIsSubmitting(null); // Reset state submitting setelah selesai
     }
   };
 
@@ -121,9 +143,27 @@ function AdminOrderTable() {
   return (
     <main className="ml-64 mt-16 p-6 bg-gray-50 min-h-screen space-y-6">
 
+      {/* Tab Bar */}
+      <div className="bg-white rounded-lg shadow-md mb-6 p-2 flex flex-wrap justify-center sm:justify-start gap-2">
+        {['Pending', 'Selesai', 'Ditolak', 'Semua'].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-6 py-2 rounded-md text-sm font-medium transition-colors duration-200
+              ${activeTab === tab
+                ? 'bg-blue-600 text-white shadow-lg'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+          >
+            {tab} ({allOrders.filter(order => tab === 'Semua' || order.status === tab).length})
+          </button>
+        ))}
+      </div>
+      {/* --- End Tab Bar --- */}
+
       <div className="bg-white p-4 rounded-lg shadow-md overflow-x-auto">
-        {orders.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">Belum ada order tersedia.</div>
+        {filteredOrders.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">Tidak ada order dengan status '{activeTab}'.</div>
         ) : (
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -158,7 +198,7 @@ function AdminOrderTable() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {orders.map((order) => (
+              {filteredOrders.map((order) => (
                 <tr key={order.id} className={order.status === 'Pending' ? 'bg-yellow-50' : ''}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.id.substring(0, 8)}...</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.type}</td>
@@ -187,15 +227,27 @@ function AdminOrderTable() {
                       <>
                         <button
                           onClick={() => handleAction(order.id, 'Selesai')}
-                          className="text-green-600 hover:text-green-900 mr-3 px-3 py-1 border border-green-600 rounded-md hover:bg-green-50 transition-colors"
+                          // Menonaktifkan tombol jika sedang memproses order ini
+                          disabled={isSubmitting === order.id}
+                          className={`mr-3 px-3 py-1 border rounded-md transition-colors
+                            ${isSubmitting === order.id
+                              ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                              : 'text-green-600 hover:text-green-900 border-green-600 hover:bg-green-50'
+                            }`}
                         >
-                          Approve
+                          {isSubmitting === order.id ? 'Memproses...' : 'Approve'}
                         </button>
                         <button
                           onClick={() => handleAction(order.id, 'Ditolak')}
-                          className="text-red-600 hover:text-red-900 px-3 py-1 border border-red-600 rounded-md hover:bg-red-50 transition-colors"
+                          // Menonaktifkan tombol jika sedang memproses order ini
+                          disabled={isSubmitting === order.id}
+                          className={`px-3 py-1 border rounded-md transition-colors
+                            ${isSubmitting === order.id
+                              ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                              : 'text-red-600 hover:text-red-900 border-red-600 hover:bg-red-50'
+                            }`}
                         >
-                          Reject
+                          {isSubmitting === order.id ? 'Memproses...' : 'Reject'}
                         </button>
                       </>
                     ) : (

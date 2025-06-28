@@ -19,7 +19,7 @@ const ArisanScreen = () => {
     keterangan: '',
     banner: [''],
     document: [''],
-    location: '',
+    location: '', // <--- Tambah field location di state form
     targetLot: 0,
     targetAmount: 0,
     penagihanDate: '',
@@ -45,7 +45,7 @@ const ArisanScreen = () => {
         keterangan: item.keterangan || '',
         banner: item.banner || [''],
         document: item.doc || [''],
-        location: item.location || '',
+        location: item.location || '', // <--- Ambil location dari item yang diedit
         targetLot: item.totalSlot ?? 0,
         targetAmount: item.targetPay ?? 0,
         penagihanDate: item.penagihanDate || '',
@@ -59,7 +59,7 @@ const ArisanScreen = () => {
         keterangan: '',
         banner: [''],
         document: [''],
-        location: '',
+        location: '', // <--- Inisialisasi location untuk form baru
         targetLot: 0,
         targetAmount: 0,
         penagihanDate: '',
@@ -76,7 +76,7 @@ const ArisanScreen = () => {
       keterangan: form.description,
       banner: form.banner,
       document: form.document,
-      // location: form.location,
+      location: form.location, // <--- Tambah location ke payload
       targetLot: Number(form.targetLot),
       targetAmount: Number(form.targetAmount),
       // penagihanDate: form.penagihanDate
@@ -158,7 +158,7 @@ const ArisanScreen = () => {
       alert('Gagal mengkonfirmasi member: ' + err);
     }
   }
-  
+
   const handleApproveHapus = async (idUser) => {
     try {
       await postData(`Arisan/DeleteArisanMemberbyAdmin`, {
@@ -200,6 +200,7 @@ const ArisanScreen = () => {
               <th className="p-2">No</th>
               <th className="p-2">Judul</th>
               <th className="p-2">Deskripsi</th>
+              <th className="p-2">Penerima Sebelumnya</th> {/* <--- Tambah kolom Lokasi di tabel utama */}
               <th className="p-2">Status</th>
               <th className="p-2">Aksi</th>
             </tr>
@@ -210,6 +211,7 @@ const ArisanScreen = () => {
                 <td className="p-2">{index + 1}</td>
                 <td className="p-2">{item.title}</td>
                 <td className="p-2">{item.keterangan}</td>
+                <td className="p-2">{item.kenaikan || '-'}</td> {/* <--- Tampilkan data location */}
                 <td className="p-2">{item.status ? 'Aktif' : 'Tidak Aktif'}</td>
                 <td className="p-2 space-x-2">
                   <button
@@ -229,7 +231,7 @@ const ArisanScreen = () => {
             ))}
             {data.length === 0 && (
               <tr>
-                <td colSpan="5" className="p-4 text-center text-gray-500">
+                <td colSpan="6" className="p-4 text-center text-gray-500"> {/* <--- Ubah colspan menjadi 6 */}
                   Tidak ada data
                 </td>
               </tr>
@@ -263,6 +265,18 @@ const ArisanScreen = () => {
                     />
                   </div>
                 ))}
+
+                {/* --- Tambah Input Location di sini --- */}
+                <div className="col-span-1">
+                  <label className="text-sm block">Penerima Sebelumnya</label>
+                  <input
+                    type="text"
+                    value={form.location}
+                    onChange={(e) => setForm({ ...form, location: e.target.value })}
+                    className="w-full border p-2 rounded"
+                  />
+                </div>
+                {/* --- End Tambah Input Location --- */}
 
                 <div>
                   <label className="text-sm block">Target Member</label>
