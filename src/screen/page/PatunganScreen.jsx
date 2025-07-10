@@ -173,10 +173,18 @@ const PatunganScreen = () => {
   };
 
   const handleApprove = async (memberItem) => {
+    // Display a confirmation dialog
+    const isConfirmed = confirm('Apakah Anda yakin ingin refund dana pembayaran member ini?');
+
+    // If the user clicks "No" or cancels, stop the function execution
+    if (!isConfirmed) {
+      return;
+    }
+
     try {
-      await postData(`Patungan/PayCompletePatungan`, {
+      await postData(`Patungan/RefundPatunganMemberbyAdmin`, {
         idUser: memberItem.idUser,
-        idTransaksi: editingItem.id,
+        idPatungan: editingItem.id,
         id: memberItem.id
       });
       refreshEditingItem(editingItem.id);
@@ -425,20 +433,20 @@ const PatunganScreen = () => {
                             <td className="px-4 py-3">{item.phoneNumber || 'N/A'}</td>
                             <td className="px-4 py-3 text-center">{item.jumlahLot}</td>
                             <td className="px-4 py-3 text-center flex items-center justify-center space-x-2">
-                                <button
-                                    onClick={() => handleApprove(item)}
-                                    className="text-green-600 hover:text-green-800 text-xl font-bold leading-none"
-                                    title="Konfirmasi Pembayaran"
-                                >
-                                    ✓
-                                </button>
-                                <button
-                                    onClick={() => handleApproveHapus(item)}
-                                    className="text-red-600 hover:text-red-800 text-xl leading-none"
-                                    title="Hapus Member"
-                                >
-                                    🗑️
-                                </button>
+                              <button
+                                onClick={() => handleApprove(item)}
+                                className="text-green-400 hover:text-green-800 text-sm font-bold leading-none"
+                                title="Konfirmasi Pembayaran"
+                              >
+                                Fund
+                              </button>
+                              <button
+                                onClick={() => handleApproveHapus(item)}
+                                className="text-red-600 hover:text-red-800 text-xl leading-none"
+                                title="Hapus Member"
+                              >
+                                🗑️
+                              </button>
                             </td>
                           </tr>
                         ))
