@@ -13,6 +13,7 @@ import UserScreen from "./screen/page/UserScreen";
 import GaleryScreen from "./screen/page/GaleryScreen";
 import BannerScreen from "./screen/page/BannerScreen";
 import SettingScreen from "./screen/page/SettingScreen";
+import InformasiScreen from "./screen/page/InformasiScreen";
 
 
 
@@ -23,13 +24,13 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeSelector />} />
         <Route path="/HomeScreen" element={<MainLayout />}>
+          <Route path="InformasiScreen" index element={<InformasiScreen />}/>
+
           <Route path="DashboardScreen" index element={<Dashboard />}/>
           <Route path="ArisanScreen" element={<ArisanScreen />}/>
           <Route path="PatunganScreen" element={<PatunganScreen />}/>
           <Route path="BannerScreen" element={<BannerScreen />}/>
           <Route path="SettingScreen" element={<SettingScreen />}/>
-
-
           <Route path="EdukasiScreen" element={<EdukasiScreen />}/>
           <Route path="KoperasiScreen" element={<KoperasiScreen />}/>
           <Route path="SedekahScreen" element={<SedekahScreen />}/>

@@ -72,6 +72,9 @@ const PatunganScreen = () => {
       });
     }
     setIsModalOpen(true);
+    console.log(item.memberPatungan.reduce((total, member) => {
+  return total + member.jumlahLot;
+}, 0))
   };
 
   const saveData = async () => {
@@ -152,6 +155,7 @@ const PatunganScreen = () => {
       setNewMemberPhoneNumber('');
       setNewMemberLot(1);
       refreshEditingItem(editingItem.id);
+      
       alert('Member berhasil ditambahkan!');
     } catch (err) {
       console.error('Error adding member:', err);

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png'; // Pastikan path ini sesuai
-import { postData } from '../api/service';
+import logo from '../assets/logo.png';
 
 const HomeSelector = () => {
     const navigate = useNavigate();

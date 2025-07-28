@@ -2,6 +2,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 const menuItems = [
+  { name: 'Informasi', path: '/HomeScreen/InformasiScreen', icon: 'ℹ️' },
+
   { name: 'Beranda', path: '/HomeScreen/DashboardScreen', icon: '🏠' },
   { name: 'Arisan', path: '/HomeScreen/ArisanScreen', icon: '🤝' },
   { name: 'Patungan', path: '/HomeScreen/PatunganScreen', icon: '💰' },
@@ -11,6 +13,7 @@ const menuItems = [
     icon: '⚙️',
     children: [
       { name: 'Event', path: '/HomeScreen/BannerScreen' },
+      { name: 'Penarikan', path: '/HomeScreen/BannerScreen' },
       // { name: 'Setting', path: '/HomeScreen/SettingScreen' },
       { name: 'Galeri Gambar', path: '/HomeScreen/GaleryScreen' },
     ],
