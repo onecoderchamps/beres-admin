@@ -119,7 +119,7 @@ function InformasiScreen() {
     datasets: [
       {
         label: "Penggunaan Mingguan",
-        data: [120, 190, 300, 500, 200, 300, 450], // Example data
+        data: [640, 540, 650, 740, 1900, 1300, 1230], // Example data
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
